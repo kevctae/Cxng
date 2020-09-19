@@ -9,6 +9,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LayoutsModule } from './layouts/layouts.module';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [AppComponent],
@@ -18,6 +19,7 @@ import { LayoutsModule } from './layouts/layouts.module';
     IonicModule.forRoot(), 
     AppRoutingModule,
     LayoutsModule,
+    NgbModule,
   ],
   providers: [
     StatusBar,
