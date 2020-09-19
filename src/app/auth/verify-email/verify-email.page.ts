@@ -2,11 +2,11 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.page.html',
-  styleUrls: ['./profile.page.scss'],
+  selector: 'app-verify-email',
+  templateUrl: './verify-email.page.html',
+  styleUrls: ['./verify-email.page.scss'],
 })
-export class ProfilePage implements OnInit {
+export class VerifyEmailPage implements OnInit {
 
   constructor(
     public authService: AuthService,
