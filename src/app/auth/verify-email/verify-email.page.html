@@ -1,11 +1,5 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>verify-email</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <div class="displayTable">
+  <!-- <div class="displayTable">
     <div class="displayTableCell">
   
       <div class="authBlock">
@@ -14,10 +8,10 @@
         <div class="formGroup" *ngIf="authService.userData as user">
           <p class="text-center">We have sent a confirmation email to <strong>{{user.email}}</strong>.</p>
           <p class="text-center">Please check your email and click on the link to verfiy your email address.</p>
-        </div>
+        </div> -->
         
         <!-- Calling SendVerificationMail() method using authService Api -->
-        <div class="formGroup">
+        <!-- <div class="formGroup">
           <button type="button" class="btn btnPrimary" (click)="authService.SendVerificationMail()">
             <i class="fas fa-redo-alt"></i>
             Resend Verification Email
@@ -31,5 +25,31 @@
       </div>
   
     </div>
-  </div>
+  </div> -->
+
+  <ion-grid *ngIf="authService.userData as user">
+    <ion-row class="ion-justify-content-center ion-padding-top">
+      <ion-col class="ion-text-center" size-lg="6" size-md="6" size-sm="6" size="12">
+
+        <h1>Verify Email</h1>
+        <h6>We have sent a confirmation email to <strong>{{user.email}}</strong></h6>
+        <h6>Please check your email and click on the link to verfiy your email address.</h6>
+        <p (click)="authService.SendVerificationMail()">resend verification email...? click here!</p>
+
+        <ion-row style="padding-top: 30px">
+          <ion-col class="ion-text-center">
+            <ion-button 
+              type="submit"
+              size="large" 
+              color="medium"
+              routerLink="/sign-in" 
+              routerDirection="forward">
+              Sign in
+            </ion-button>
+          </ion-col>
+        </ion-row>
+
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

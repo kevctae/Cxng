@@ -1,11 +1,5 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>sign-in</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <div class="displayTable">
+<ion-content class="ion-padding">
+  <!-- <div class="displayTable">
     <div class="displayTableCell">
   
       <div class="authBlock">
@@ -16,19 +10,19 @@
   
         <div class="formGroup">
           <input type="password" class="formControl" placeholder="Password" #userPassword required>
-        </div>
+        </div> -->
   
         <!-- Calling SignIn Api from AuthService -->
-        <div class="formGroup">
+        <!-- <div class="formGroup">
           <input type="button" class="btn btnPrimary" value="Log in" (click)="authService.SignIn(userName.value, userPassword.value)">
         </div>
   
         <div class="formGroup">
           <span class="or"><span class="orInner">Or</span></span>
-        </div>
+        </div> -->
   
         <!-- Calling GoogleAuth Api from AuthService -->
-        <div class="formGroup">
+        <!-- <div class="formGroup">
           <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
             <i class="fab fa-google-plus-g"></i>
             Log in with Google
@@ -45,7 +39,58 @@
       </div>
   
     </div>
-  </div>
+  </div> -->
+  <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center ion-padding-top">
+        <ion-col class="ion-text-center" size-lg="6" size-md="6" size-sm="6" size="12">
 
+          <h1>Cxng</h1>
+
+          <ion-list lines="full">
+            <ion-item>
+              <ion-label position="floating" >Email</ion-label>
+              <ion-input type="email" formControlName="email" ></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+          </ion-list>
+
+          <p routerLink="/forgot-password">forgot password...? click here!</p>
+          <p routerLink="/sign-up" routerDirection="forward">don't have an account...? click here!</p>
+
+        </ion-col>
+      </ion-row>
+
+      
+      <ion-row *ngIf="signinForm.valid" style="padding-top: 30px">
+        <ion-col class="ion-text-center">
+          <ion-button 
+            type="submit"
+            size="large" 
+            color="medium">
+            Next
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+      <!-- <ion-row style="padding-top: 30px">
+        <ion-col class="ion-text-center">
+          <ion-button  
+            size="large" 
+            color="light"
+            routerLink="/sign-up"
+            routerDirection="forward">
+            Sign up
+          </ion-button>
+        </ion-col>
+      </ion-row> -->
+
+    </ion-grid>
+  </form>
+  
   
 </ion-content>
