@@ -4,6 +4,8 @@ import { auth } from 'firebase/app';
 import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
+import { ToastController } from '@ionic/angular';
+import { CloneVisitor } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +18,8 @@ export class AuthService {
     public afs: AngularFirestore,   // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,  
-    public ngZone: NgZone // NgZone service to remove outside scope warning
+    public ngZone: NgZone, // NgZone service to remove outside scope warning
+    public toastController: ToastController,
   ) {    
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
@@ -36,12 +39,15 @@ export class AuthService {
   SignIn(email, password) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.ngZone.run(() => {
-          this.router.navigate(['home']);
+        this.SetUserData(result.user).then(() => {
+          this.ngZone.run(() => {
+            this.router.navigate(['home']);
+          });
+        }).catch((error) => {
+          this.presentToast(error, 4000, 'danger');
         });
-        this.SetUserData(result.user);
       }).catch((error) => {
-        window.alert(error.message)
+        this.presentToast(error.message, 4000, 'danger');
       })
   }
 
@@ -54,7 +60,7 @@ export class AuthService {
         this.SendVerificationMail();
         this.SetUserData(result.user);
       }).catch((error) => {
-        window.alert(error.message)
+        this.presentToast(error.message, 4000, 'danger');
       })
   }
 
@@ -70,9 +76,10 @@ export class AuthService {
   ForgotPassword(passwordResetEmail) {
     return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
     .then(() => {
-      window.alert('Password reset email sent, check your inbox.');
+      this.presentToast('Password reset email sent, check your inbox.', 4000, 'warning');
+      this.router.navigate(['sign-in']);
     }).catch((error) => {
-      window.alert(error)
+      this.presentToast(error, 4000, 'danger');
     })
   }
 
@@ -96,7 +103,7 @@ export class AuthService {
         })
       this.SetUserData(result.user);
     }).catch((error) => {
-      window.alert(error)
+      this.presentToast(error, 4000, 'danger');
     })
   }
 
@@ -123,6 +130,16 @@ export class AuthService {
       localStorage.removeItem('user');
       this.router.navigate(['sign-in']);
     })
+  }
+
+  async presentToast(message: string, duration: number, color: string) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: duration,
+      color: color,
+      position: 'top',
+    });
+    toast.present();
   }
 
 }
