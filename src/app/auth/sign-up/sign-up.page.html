@@ -1,11 +1,5 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>sign-up</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-  <div class="displayTable">
+<ion-content class="ion-padding">
+  <!-- <div class="displayTable">
     <div class="displayTableCell">
   
       <div class="authBlock">
@@ -25,18 +19,18 @@
   
         <div class="formGroup">
           <span class="or"><span class="orInner">Or</span></span>
-        </div>
+        </div> -->
   
         <!-- Continue with Google -->
-        <div class="formGroup">
+        <!-- <div class="formGroup">
           <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
             <i class="fab fa-google-plus-g"></i>
             Continue with Google
           </button>
-        </div>
+        </div> -->
   
         <!-- Continue with Facebook -->
-        <div class="formGroup">
+        <!-- <div class="formGroup">
           <button type="button" class="btn facebookBtn" (click)="authService.FacebookAuth()">
             <i class="fab fa-facebook"></i>
             Continue with Facebook
@@ -49,5 +43,43 @@
       </div>
     </div>
   
-  </div>
+  </div> -->
+  <form [formGroup]="signupForm" (ngSubmit)="onSubmit()">
+    <ion-grid>
+      <ion-row class="ion-justify-content-center ion-padding-top">
+        <ion-col class="ion-text-center" size-lg="6" size-md="6" size-sm="6" size="12">
+
+          <h1>Register</h1>
+
+          <ion-list lines="full">
+            <ion-item>
+              <ion-label position="floating" >Email</ion-label>
+              <ion-input type="email" formControlName="email" ></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input type="password" formControlName="password"></ion-input>
+            </ion-item>
+          </ion-list>
+
+          <p routerLink="/sign-in">already have an account...? click here!</p>
+
+        </ion-col>
+      </ion-row>
+
+      
+      <ion-row *ngIf="signupForm.valid" style="padding-top: 30px">
+        <ion-col class="ion-text-center">
+          <ion-button 
+            type="submit"
+            size="large" 
+            color="medium">
+            Sign-up
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
+    </ion-grid>
+  </form>
 </ion-content>
