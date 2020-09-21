@@ -5,7 +5,6 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { ToastController } from '@ionic/angular';
-import { CloneVisitor } from '@angular/compiler/src/i18n/i18n_ast';
 
 @Injectable({
   providedIn: 'root'
