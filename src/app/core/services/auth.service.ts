@@ -5,6 +5,7 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { ToastController } from '@ionic/angular';
+import { NotificationService } from './notification.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AuthService {
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public router: Router,  
     public ngZone: NgZone, // NgZone service to remove outside scope warning
-    public toastController: ToastController,
+    public notiService: NotificationService,
   ) {    
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
@@ -43,10 +44,10 @@ export class AuthService {
             this.router.navigate(['home']);
           });
         }).catch((error) => {
-          this.presentToast(error, 4000, 'danger');
+          this.notiService.presentToast(error, 4000, 'danger');
         });
       }).catch((error) => {
-        this.presentToast(error.message, 4000, 'danger');
+        this.notiService.presentToast(error.message, 4000, 'danger');
       })
   }
 
@@ -59,7 +60,7 @@ export class AuthService {
         this.SendVerificationMail();
         this.SetUserData(result.user);
       }).catch((error) => {
-        this.presentToast(error.message, 4000, 'danger');
+        this.notiService.presentToast(error.message, 4000, 'danger');
       })
   }
 
@@ -75,10 +76,10 @@ export class AuthService {
   ForgotPassword(passwordResetEmail) {
     return this.afAuth.auth.sendPasswordResetEmail(passwordResetEmail)
     .then(() => {
-      this.presentToast('Password reset email sent, check your inbox.', 4000, 'warning');
+      this.notiService.presentToast('Password reset email sent, check your inbox.', 4000, 'warning');
       this.router.navigate(['sign-in']);
     }).catch((error) => {
-      this.presentToast(error, 4000, 'danger');
+      this.notiService.presentToast(error, 4000, 'danger');
     })
   }
 
@@ -102,7 +103,7 @@ export class AuthService {
         })
       this.SetUserData(result.user);
     }).catch((error) => {
-      this.presentToast(error, 4000, 'danger');
+      this.notiService.presentToast(error, 4000, 'danger');
     })
   }
 
@@ -129,16 +130,6 @@ export class AuthService {
       localStorage.removeItem('user');
       this.router.navigate(['sign-in']);
     })
-  }
-
-  async presentToast(message: string, duration: number, color: string) {
-    const toast = await this.toastController.create({
-      message: message,
-      duration: duration,
-      color: color,
-      position: 'top',
-    });
-    toast.present();
   }
 
 }
