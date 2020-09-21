@@ -4,4 +4,7 @@ export interface RoomType {
   displayName: string;
   photoURL: string;
   emailVerified: boolean;
+  minPoints: number;
+  occupied: number;
+  name: string;
 }
