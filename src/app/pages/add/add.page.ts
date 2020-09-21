@@ -1,6 +1,7 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { RoomType } from 'src/app/core/models/room-type.model';
+import { NotificationService } from 'src/app/core/services/notification.service';
 import { RoomTypeService } from 'src/app/core/services/room-type.service';
 
 @Component({
@@ -14,6 +15,7 @@ export class AddPage implements OnInit, OnDestroy {
 
   constructor(
     private roomTypeService: RoomTypeService,
+    private notiService: NotificationService,
   ) { }
 
   ngOnInit() {
@@ -26,6 +28,8 @@ export class AddPage implements OnInit, OnDestroy {
         this.roomTypes = datas.map((data) => {
           return data.payload.doc.data() as RoomType;
         });
+      }, (error) => {
+        this.notiService.presentToast(error, 4000, 'danger')
       });
   }
 
