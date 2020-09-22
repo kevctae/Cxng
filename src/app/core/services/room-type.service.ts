@@ -9,4 +9,8 @@ export class RoomTypeService {
   constructor(
     public afs: AngularFirestore,
   ) { }
+
+  getRoomTypes() {
+    return this.afs.collection("roomTypes").snapshotChanges();
+  }
 }

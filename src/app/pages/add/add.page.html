@@ -5,25 +5,39 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  
-  <ion-card>
-    <img src="https://fastly.4sqi.net/img/general/width960/65446767_eQmdqcJaR62gi79se7d1tJBx4GAV2jYHpAiPweNc2ME.jpg">
+
+  <ion-card *ngFor="let roomType of roomTypes">
+    <img [src]="roomType.photoURL">
     <ion-button fill="outline" slot="end">Reserve a Room</ion-button>
     <ion-card-header>
-      <ion-card-subtitle>Destination</ion-card-subtitle>
-      <ion-card-title>Madison, WI</ion-card-title>
+
+      <ion-card-subtitle>{{ roomType.roomid}}</ion-card-subtitle>
+      <ion-card-title>{{ roomType.name }}</ion-card-title>
+
     </ion-card-header>
     <ion-card-content>
-      <div class="container">
-        Founded in 1829 on an isthmus between Lake Monona and Lake Mendota, Madison was named the capital of the Wisconsin Territory in 1836.
-      </div>
-      <div class="container">
-        <ion-button 
-          fill="outline"
-          size="small">
-          Reserve
-        </ion-button>
-      </div>
+
+      <ion-row>
+        <ion-col>
+          <p>{{ roomType.description }}</p>
+        </ion-col>
+      </ion-row>
+
+      <ion-row class="ion-align-items-center">
+        <ion-col>
+          <p>Cost: {{ roomType.minPoints }} mins</p>
+          <p>Min. Player: {{ roomType.minPeople }}</p>
+        </ion-col>
+
+        <ion-col class="ion-text-end">
+          <ion-button 
+            fill="outline"
+            size="small">
+            Reserve
+          </ion-button>
+        </ion-col>
+      </ion-row>
+
     </ion-card-content>
   </ion-card>
 
