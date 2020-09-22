@@ -11,7 +11,7 @@
     <ion-button fill="outline" slot="end">Reserve a Room</ion-button>
     <ion-card-header>
 
-      <ion-card-subtitle>Destination</ion-card-subtitle>
+      <ion-card-subtitle>{{ roomType.roomid}}</ion-card-subtitle>
       <ion-card-title>{{ roomType.name }}</ion-card-title>
 
     </ion-card-header>
@@ -19,11 +19,16 @@
 
       <ion-row>
         <ion-col>
-          {{ roomType.description }}
+          <p>{{ roomType.description }}</p>
         </ion-col>
       </ion-row>
 
-      <ion-row>
+      <ion-row class="ion-justify-items-center">
+        <ion-col>
+          <p>Cost: {{ roomType.minPoints }} mins</p>
+          <p>Minimum Player: {{ roomType.minPeople }}</p>
+        </ion-col>
+
         <ion-col class="ion-text-end">
           <ion-button 
             fill="outline"

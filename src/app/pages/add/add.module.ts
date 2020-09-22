@@ -13,7 +13,7 @@ import { AddPage } from './add.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    AddPageRoutingModule
+    AddPageRoutingModule,
   ],
   declarations: [AddPage]
 })

@@ -1,10 +1,9 @@
 export interface RoomType {
-  uid: string;
-  email: string;
-  displayName: string;
-  photoURL: string;
-  emailVerified: boolean;
+  description: string;
+  minPeople: number;
   minPoints: number;
-  occupied: number;
   name: string;
+  photoURL: string;
+  roomid: string;
+  
 }
