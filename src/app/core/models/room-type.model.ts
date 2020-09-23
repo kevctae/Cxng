@@ -5,5 +5,4 @@ export interface RoomType {
   name: string;
   photoURL: string;
   roomid: string;
-  
 }
