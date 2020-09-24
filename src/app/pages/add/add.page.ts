@@ -19,10 +19,10 @@ export class AddPage implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.loadRoomTypes();
+    this.loadRoomTypesData();
   }
 
-  loadRoomTypes() {
+  loadRoomTypesData() {
     this.roomTypeSubscription = this.roomTypeService.getRoomTypes()
       .subscribe((datas) => {
         this.roomTypes = datas.map((data) => {

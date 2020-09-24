@@ -8,21 +8,25 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./sign-in.page.scss'],
 })
 export class SignInPage implements OnInit {
-  signinForm: FormGroup;
+  signInForm: FormGroup;
 
   constructor(
     public authService: AuthService,
   ) { }
 
   ngOnInit() {
-    this.signinForm = new FormGroup({
+    this.loadFormData();
+  }
+
+  loadFormData() {
+    this.signInForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
       'password': new FormControl(null, Validators.required),
     });
   }
 
   onSubmit() {
-    this.authService.SignIn(this.signinForm.value.email, this.signinForm.value.password);
+    this.authService.SignIn(this.signInForm.value.email, this.signInForm.value.password);
   }
 
 }

@@ -40,7 +40,7 @@
   
     </div>
   </div> -->
-  <form [formGroup]="signinForm" (ngSubmit)="onSubmit()">
+  <form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
     <ion-grid>
       <ion-row class="ion-justify-content-center ion-padding-top">
         <ion-col class="ion-text-center" size-lg="6" size-md="6" size-sm="6" size="12">
@@ -66,7 +66,7 @@
       </ion-row>
 
       
-      <ion-row *ngIf="signinForm.valid" style="padding-top: 30px">
+      <ion-row *ngIf="signInForm.valid" style="padding-top: 30px">
         <ion-col class="ion-text-center">
           <ion-button 
             type="submit"
