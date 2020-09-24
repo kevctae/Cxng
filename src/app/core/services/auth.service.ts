@@ -5,13 +5,14 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { NotificationService } from './notification.service';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 
 export class AuthService {
-  userData: any; // Save logged in user data
+  userData: User; // Save logged in user data
 
   constructor(
     public afs: AngularFirestore,   // Inject Firestore service

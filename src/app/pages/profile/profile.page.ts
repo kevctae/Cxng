@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/core/models/user';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -12,7 +13,6 @@ export class ProfilePage implements OnInit {
     public authService: AuthService,
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
 }
