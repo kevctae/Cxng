@@ -34,7 +34,13 @@
         <h1>Verify Email</h1>
         <h6>We have sent a confirmation email to <strong>{{user.email}}</strong></h6>
         <h6>Please check your email and click on the link to verfiy your email address.</h6>
-        <p *ngIf="showForgotPassword" (click)="resendVerification()">resend verification email...? click here!</p>
+        <ion-button 
+          color="light"
+          size="small"
+          [disabled]="!allowResend"
+          (click)="resendVerification()">
+          ({{ count }}) Resend Verification Email
+        </ion-button>
 
         <ion-row style="padding-top: 30px">
           <ion-col class="ion-text-center">
