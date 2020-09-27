@@ -1,41 +1,38 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/core/services/auth.service';
-import { PhotoEditPage } from './photo-edit/photo-edit.page';
-import { ProfileEditPage } from './profile-edit/profile-edit.page';
 
 @Component({
-  selector: 'app-profile',
-  templateUrl: './profile.page.html',
-  styleUrls: ['./profile.page.scss'],
+  selector: 'app-profile-edit',
+  templateUrl: './profile-edit.page.html',
+  styleUrls: ['./profile-edit.page.scss'],
 })
-export class ProfilePage implements OnInit {
+export class ProfileEditPage implements OnInit {
+  profileEditForm: FormGroup;
+  showForgotPassword: boolean = true;
 
   constructor(
-    public authService: AuthService,
     public modalController: ModalController,
+    public authService: AuthService,
     public alertController: AlertController,
   ) { }
 
-  ngOnInit() {}
-
-  async openPhotoEditModal() {
-    const modal = await this.modalController.create({
-      component: PhotoEditPage,
-    });
-    return await modal.present();
+  ngOnInit() {
+    this.loadFormData();
   }
 
-  async openProfileEditModal() {
-    const modal = await this.modalController.create({
-      component: ProfileEditPage,
+  loadFormData() {
+    this.profileEditForm = new FormGroup({
+      'displayName': new FormControl(this.authService.userData.displayName),
+      'email': new FormControl(this.authService.userData.email, [Validators.email]),
     });
-    return await modal.present();
   }
 
-  async openDeleteAccountAlert() {
+  async onSubmit() {
     const alert = await this.alertController.create({
-      header: 'Enter Password to Confirm Deletion',
+      header: 'Enter Password to Confirm Change',
       inputs: [
         {
           name: 'password',
@@ -55,11 +52,13 @@ export class ProfilePage implements OnInit {
           text: 'Ok',
           handler: (data) => {
             console.log('Confirm Ok');
-            this.authService.DeleteUser(
+            this.authService.UpdateProfile(
               this.authService.userData.email,
               data.password,
+              this.profileEditForm.value.email,
+              this.profileEditForm.value.displayName,
             ).then(() => {
-              this.closeUserEditModal();
+              this.closeProfileEditModal();
             });
             
           }
@@ -69,7 +68,7 @@ export class ProfilePage implements OnInit {
     await alert.present();
   }
 
-  closeUserEditModal() {
+  closeProfileEditModal() {
     this.modalController.dismiss();
   }
 

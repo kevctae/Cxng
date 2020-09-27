@@ -5,7 +5,6 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { NotificationService } from './notification.service';
-import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -39,16 +38,46 @@ export class AuthService {
   SignIn(email, password) {
     return this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then((result) => {
-        this.SetUserData(result.user).then(() => {
-          this.ngZone.run(() => {
-            this.router.navigate(['home']);
+        if (!result.user.emailVerified) {
+          this.SendVerificationMail();
+        } else {
+          this.SetUserData(result.user).then(() => {
+            this.ngZone.run(() => {
+              this.router.navigate(['home']);
+            });
+          }).catch((error) => {
+            this.notiService.presentToast(error, 4000, 'danger');
           });
-        }).catch((error) => {
-          this.notiService.presentToast(error, 4000, 'danger');
-        });
+        }
       }).catch((error) => {
         this.notiService.presentToast(error.message, 4000, 'danger');
-      })
+      });
+  }
+
+  //Update Profile
+  UpdateProfile(email, password, newEmail, newDisplayName) {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then(async (result) => {
+        await result.user.updateProfile({
+          displayName: newDisplayName
+        }).catch((error) => {
+          this.notiService.presentToast(error.message, 4000, 'danger');
+        });
+        this.UpdateEmail(email, password, newEmail, result);
+      }).catch((error) => {
+        this.notiService.presentToast(error.message, 4000, 'danger');
+      });
+  }
+
+  //Update Email
+  async UpdateEmail(email, password, newEmail, userCredential) {
+    if (email != newEmail) {
+      await userCredential.user.updateEmail(newEmail)
+      .catch((error) => {
+        this.notiService.presentToast(error.message, 4000, 'danger');
+      });
+      this.SignIn(newEmail, password);
+    }
   }
 
   // Sign up with email/password
@@ -130,6 +159,21 @@ export class AuthService {
       localStorage.removeItem('user');
       this.router.navigate(['sign-in']);
     })
+  }
+
+  //Delete user
+  DeleteUser(email, password) {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        result.user.delete().then(() => {
+          this.notiService.presentToast('Account deleted sucessfully.', 4000, 'sucess');
+          this.router.navigate(['sign-in']);
+        }).catch((error) => {
+          this.notiService.presentToast(error.message, 4000, 'danger');
+        });
+      }).catch((error) => {
+        this.notiService.presentToast(error.message, 4000, 'danger');
+      });
   }
 
 }

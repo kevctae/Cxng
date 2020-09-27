@@ -15,6 +15,10 @@ export class ForgotPasswordPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.loadFormData();
+  }
+
+  loadFormData() {
     this.forgotForm = new FormGroup({
       'email': new FormControl(null, [Validators.required, Validators.email]),
     });

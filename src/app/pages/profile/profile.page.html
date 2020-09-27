@@ -5,12 +5,12 @@
 </ion-header>
 
 <ion-content [fullscreen]="true" *ngIf="authService.userData">
-
   <ion-card>
     <ion-card-header>
       <ion-card-title *ngIf="authService.userData.displayName">
         Hello, {{ authService.userData.displayName }}
       </ion-card-title>
+
       <ion-card-title *ngIf="!authService.userData.displayName">
         Hello!
       </ion-card-title>
@@ -19,6 +19,13 @@
     <ion-row>
       <ion-col class="ion-text-center">
         <img [src]="authService.userData.photoURL == null ? 'https://firebasestorage.googleapis.com/v0/b/cxng-1.appspot.com/o/users%2Fprofile-image-placeholder.jpg?alt=media&token=858007b4-6c4d-47f4-9999-45b260b28492' : authService.userData.photoURL" class="rounded">
+        <ion-button 
+          size="small" 
+          color="tertiary"
+          (click)="openPhotoEditModal()">
+          <ion-icon name="cloud-upload-outline"></ion-icon>
+          Upload Photo
+        </ion-button>
       </ion-col>
     </ion-row>
     
@@ -28,6 +35,7 @@
         <ion-note slot="end" *ngIf="authService.userData.displayName">
           {{ authService.userData.displayName }}
         </ion-note>
+
         <ion-note slot="end" *ngIf="!authService.userData.displayName">
           -
         </ion-note>
@@ -35,33 +43,23 @@
 
       <ion-item>
         <ion-label>Email</ion-label>
-        <ion-note 
-          *ngIf="authService.userData.emailVerified"
-          slot="end"
-          color="success">
-          {{ authService.userData.email }}
-        </ion-note>
-        <ion-note 
-          *ngIf="!authService.userData.emailVerified"
-          slot="end"
-          color="danger">
+        <ion-note slot="end">
           {{ authService.userData.email }}
         </ion-note>
       </ion-item>
 
       <ion-row>
         <ion-col class="ion-text-center">
-            <ion-button 
-              size="small" 
-              color="secondary">
-              <ion-icon name="create-outline"></ion-icon>
-              Edit
-            </ion-button>
+          <ion-button 
+            size="small" 
+            color="secondary"
+            (click)="openProfileEditModal()">
+            <ion-icon name="create-outline"></ion-icon>
+            Edit
+          </ion-button>
         </ion-col>
       </ion-row>
     </ion-list>
-
-    
   </ion-card>
 
   <ion-card>
@@ -71,12 +69,12 @@
       (click)="authService.SignOut()">
       Sign out
     </ion-button>
+
     <ion-button 
       color="danger" 
       expand="block"
-      (click)="authService.SignOut()">
+      (click)="openDeleteAccountAlert()">
       Delete Account
     </ion-button>
   </ion-card>  
-
 </ion-content>
