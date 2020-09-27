@@ -58,7 +58,7 @@ export class ProfileEditPage implements OnInit {
               this.profileEditForm.value.email,
               this.profileEditForm.value.displayName,
             ).then(() => {
-              this.closeUserEditModal();
+              this.closeProfileEditModal();
             });
             
           }
@@ -68,7 +68,7 @@ export class ProfileEditPage implements OnInit {
     await alert.present();
   }
 
-  closeUserEditModal() {
+  closeProfileEditModal() {
     this.modalController.dismiss();
   }
 

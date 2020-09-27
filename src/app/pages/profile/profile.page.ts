@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { PhotoEditPage } from './photo-edit/photo-edit.page';
 import { ProfileEditPage } from './profile-edit/profile-edit.page';
 
 @Component({
@@ -18,14 +19,21 @@ export class ProfilePage implements OnInit {
 
   ngOnInit() {}
 
-  async openUserEditModal() {
+  async openPhotoEditModal() {
+    const modal = await this.modalController.create({
+      component: PhotoEditPage,
+    });
+    return await modal.present();
+  }
+
+  async openProfileEditModal() {
     const modal = await this.modalController.create({
       component: ProfileEditPage,
     });
     return await modal.present();
   }
 
-  async openAlert() {
+  async openDeleteAccountAlert() {
     const alert = await this.alertController.create({
       header: 'Enter Password to Confirm Deletion',
       inputs: [

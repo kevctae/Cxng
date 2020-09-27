@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-photo-edit',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PhotoEditPage implements OnInit {
 
-  constructor() { }
+  constructor(
+    public modalController: ModalController,
+  ) { }
 
   ngOnInit() {
   }
 
+  closePhotoEditModal() {
+    this.modalController.dismiss();
+  }
 }
