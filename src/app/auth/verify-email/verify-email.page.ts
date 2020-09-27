@@ -7,6 +7,7 @@ import { AuthService } from 'src/app/core/services/auth.service';
   styleUrls: ['./verify-email.page.scss'],
 })
 export class VerifyEmailPage implements OnInit {
+  showForgotPassword: boolean = true
 
   constructor(
     public authService: AuthService,
@@ -14,5 +15,15 @@ export class VerifyEmailPage implements OnInit {
 
   ngOnInit() {
   }
+
+  resendVerification() {
+    this.authService.SendVerificationMail();
+    // this.coolDownTimer();
+  }
+
+  // coolDownTimer() {
+  //   this.showForgotPassword = false;
+
+  // }
 
 }

@@ -1,6 +1,7 @@
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/core/services/auth.service';
 
 @Component({
@@ -10,10 +11,12 @@ import { AuthService } from 'src/app/core/services/auth.service';
 })
 export class ProfileEditPage implements OnInit {
   profileEditForm: FormGroup;
+  showForgotPassword: boolean = true;
 
   constructor(
     public modalController: ModalController,
     public authService: AuthService,
+    public alertController: AlertController,
   ) { }
 
   ngOnInit() {
@@ -27,8 +30,51 @@ export class ProfileEditPage implements OnInit {
     });
   }
 
-  onSubmit() {
-    
+  // onSubmit() {
+  //   if (this.profileEditForm.value.email != this.authService.userData.email) {
+  //     this.presentAlertPrompt();
+  //   }
+  //   if (this.profileEditForm.value.displayName != this.authService.userData.displayName) {
+      
+  //   }
+  // }
+
+  async onSubmit() {
+    const alert = await this.alertController.create({
+      header: 'Enter Password to Confirm Change',
+      inputs: [
+        {
+          name: 'password',
+          placeholder: 'Password',
+          type: 'password'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            console.log('Confirm Ok');
+            this.authService.UpdateProfile(
+              this.authService.userData.email,
+              data.password,
+              this.profileEditForm.value.email,
+              this.profileEditForm.value.displayName,
+            ).then(() => {
+              this.closeUserEditModal();
+            });
+            
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   closeUserEditModal() {

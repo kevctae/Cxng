@@ -1,4 +1,4 @@
-<ion-content>
+<ion-content class="ion-padding">
   <!-- <div class="displayTable">
     <div class="displayTableCell">
   
@@ -34,7 +34,7 @@
         <h1>Verify Email</h1>
         <h6>We have sent a confirmation email to <strong>{{user.email}}</strong></h6>
         <h6>Please check your email and click on the link to verfiy your email address.</h6>
-        <p (click)="authService.SendVerificationMail()">resend verification email...? click here!</p>
+        <p *ngIf="showForgotPassword" (click)="resendVerification()">resend verification email...? click here!</p>
 
         <ion-row style="padding-top: 30px">
           <ion-col class="ion-text-center">
@@ -43,7 +43,8 @@
               size="large" 
               color="medium"
               routerLink="/sign-in" 
-              routerDirection="forward">
+              routerDirection="forward"
+              (click)="authService.SignOut()">
               Sign in
             </ion-button>
           </ion-col>

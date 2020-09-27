@@ -35,16 +35,7 @@
 
       <ion-item>
         <ion-label>Email</ion-label>
-        <ion-note 
-          *ngIf="authService.userData.emailVerified"
-          slot="end"
-          color="success">
-          {{ authService.userData.email }}
-        </ion-note>
-        <ion-note 
-          *ngIf="!authService.userData.emailVerified"
-          slot="end"
-          color="danger">
+        <ion-note slot="end">
           {{ authService.userData.email }}
         </ion-note>
       </ion-item>
