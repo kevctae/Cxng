@@ -30,15 +30,6 @@ export class ProfileEditPage implements OnInit {
     });
   }
 
-  // onSubmit() {
-  //   if (this.profileEditForm.value.email != this.authService.userData.email) {
-  //     this.presentAlertPrompt();
-  //   }
-  //   if (this.profileEditForm.value.displayName != this.authService.userData.displayName) {
-      
-  //   }
-  // }
-
   async onSubmit() {
     const alert = await this.alertController.create({
       header: 'Enter Password to Confirm Change',

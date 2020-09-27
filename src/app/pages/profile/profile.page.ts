@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ModalController } from '@ionic/angular';
+import { AlertController, ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/core/services/auth.service';
 import { ProfileEditPage } from './profile-edit/profile-edit.page';
 
@@ -12,7 +12,8 @@ export class ProfilePage implements OnInit {
 
   constructor(
     public authService: AuthService,
-    public modalController: ModalController
+    public modalController: ModalController,
+    public alertController: AlertController,
   ) { }
 
   ngOnInit() {}
@@ -22,6 +23,46 @@ export class ProfilePage implements OnInit {
       component: ProfileEditPage,
     });
     return await modal.present();
+  }
+
+  async openAlert() {
+    const alert = await this.alertController.create({
+      header: 'Enter Password to Confirm Deletion',
+      inputs: [
+        {
+          name: 'password',
+          placeholder: 'Password',
+          type: 'password'
+        },
+      ],
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+            console.log('Confirm Cancel');
+          }
+        }, {
+          text: 'Ok',
+          handler: (data) => {
+            console.log('Confirm Ok');
+            this.authService.DeleteUser(
+              this.authService.userData.email,
+              data.password,
+            ).then(() => {
+              this.closeUserEditModal();
+            });
+            
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  closeUserEditModal() {
+    this.modalController.dismiss();
   }
 
 }

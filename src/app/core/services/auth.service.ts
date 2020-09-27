@@ -161,4 +161,19 @@ export class AuthService {
     })
   }
 
+  //Delete user
+  DeleteUser(email, password) {
+    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        result.user.delete().then(() => {
+          this.notiService.presentToast('Account deleted sucessfully.', 4000, 'sucess');
+          this.router.navigate(['sign-in']);
+        }).catch((error) => {
+          this.notiService.presentToast(error.message, 4000, 'danger');
+        });
+      }).catch((error) => {
+        this.notiService.presentToast(error.message, 4000, 'danger');
+      });
+  }
+
 }
