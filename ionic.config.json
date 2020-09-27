@@ -1,5 +1,7 @@
 {
   "name": "Cxng",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
