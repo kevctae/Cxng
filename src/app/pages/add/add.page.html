@@ -5,18 +5,14 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-
   <ion-card *ngFor="let roomType of roomTypes">
     <img [src]="roomType.photoURL">
     <ion-button fill="outline" slot="end">Reserve a Room</ion-button>
     <ion-card-header>
-
       <ion-card-subtitle>{{ roomType.roomid}}</ion-card-subtitle>
       <ion-card-title>{{ roomType.name }}</ion-card-title>
-
     </ion-card-header>
     <ion-card-content>
-
       <ion-row>
         <ion-col>
           <p>{{ roomType.description }}</p>
@@ -37,8 +33,6 @@
           </ion-button>
         </ion-col>
       </ion-row>
-
     </ion-card-content>
   </ion-card>
-
 </ion-content>

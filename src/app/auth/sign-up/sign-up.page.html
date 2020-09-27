@@ -1,54 +1,8 @@
 <ion-content class="ion-padding">
-  <!-- <div class="displayTable">
-    <div class="displayTableCell">
-  
-      <div class="authBlock">
-        <h3>Sign Up</h3>
-  
-        <div class="formGroup">
-          <input type="email" class="formControl" placeholder="Email Address" #userEmail required>
-        </div>
-  
-        <div class="formGroup">
-          <input type="password" class="formControl" placeholder="Password" #userPwd required>
-        </div>
-  
-        <div class="formGroup">
-          <input type="button" class="btn btnPrimary" value="Sign Up" (click)="authService.SignUp(userEmail.value, userPwd.value)">
-        </div>
-  
-        <div class="formGroup">
-          <span class="or"><span class="orInner">Or</span></span>
-        </div> -->
-  
-        <!-- Continue with Google -->
-        <!-- <div class="formGroup">
-          <button type="button" class="btn googleBtn" (click)="authService.GoogleAuth()">
-            <i class="fab fa-google-plus-g"></i>
-            Continue with Google
-          </button>
-        </div> -->
-  
-        <!-- Continue with Facebook -->
-        <!-- <div class="formGroup">
-          <button type="button" class="btn facebookBtn" (click)="authService.FacebookAuth()">
-            <i class="fab fa-facebook"></i>
-            Continue with Facebook
-          </button>
-        </div>
-      </div>
-  
-      <div class="redirectToLogin">
-        <span>Already have an account? <span class="redirect" routerLink="/sign-in">Log In</span></span>
-      </div>
-    </div>
-  
-  </div> -->
   <form [formGroup]="signUpForm" (ngSubmit)="onSubmit()">
     <ion-grid>
       <ion-row class="ion-justify-content-center ion-padding-top">
         <ion-col class="ion-text-center" size-lg="6" size-md="6" size-sm="6" size="12">
-
           <h1>Register</h1>
 
           <ion-list lines="full">
@@ -64,11 +18,9 @@
           </ion-list>
 
           <p routerLink="/sign-in">already have an account...? click here!</p>
-
         </ion-col>
       </ion-row>
 
-      
       <ion-row *ngIf="signUpForm.valid" style="padding-top: 30px">
         <ion-col class="ion-text-center">
           <ion-button 
@@ -79,7 +31,6 @@
           </ion-button>
         </ion-col>
       </ion-row>
-
     </ion-grid>
   </form>
 </ion-content>

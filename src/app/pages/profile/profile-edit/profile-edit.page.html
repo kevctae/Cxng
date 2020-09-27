@@ -1,20 +1,10 @@
-<!-- <ion-header>
-  <ion-toolbar>
-    <ion-title>Edit Profile</ion-title>
-    <ion-buttons slot="end">
-      <ion-button (click)="closeUserEditModal()"><ion-icon name="close-outline"></ion-icon></ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header> -->
-
 <ion-content class="ion-padding">
   <ion-grid>
     <ion-row class="ion-align-items-center">
       <ion-col class="ion-text-end">
         <h3 (click)="closeUserEditModal()"><ion-icon name="close-outline"></ion-icon></h3>
       </ion-col>
-    </ion-row>
-    
+    </ion-row>    
 
     <form [formGroup]="profileEditForm" (ngSubmit)="onSubmit()">
       <ion-row class="ion-justify-content-center ion-padding-top">
@@ -36,7 +26,6 @@
           <p routerLink="/forgot-password">forgot password...? click here!</p>
         </ion-col>
       </ion-row>
-
       
       <ion-row *ngIf="profileEditForm.dirty" style="padding-top: 30px">
         <ion-col class="ion-text-center">

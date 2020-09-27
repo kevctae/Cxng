@@ -8,6 +8,7 @@ import { ProfilePageRoutingModule } from './profile-routing.module';
 
 import { ProfilePage } from './profile.page';
 import { ProfileEditPageModule } from './profile-edit/profile-edit.module';
+import { PhotoEditPageModule } from './photo-edit/photo-edit.module';
 
 @NgModule({
   imports: [
@@ -16,6 +17,7 @@ import { ProfileEditPageModule } from './profile-edit/profile-edit.module';
     IonicModule,
     ProfilePageRoutingModule,
     ProfileEditPageModule,
+    PhotoEditPageModule,
   ],
   declarations: [ProfilePage]
 })
