@@ -5,6 +5,8 @@ import { AngularFireAuth } from "@angular/fire/auth";
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from "@angular/router";
 import { NotificationService } from './notification.service';
+import { AngularFireStorage } from '@angular/fire/storage';
+import { finalize, take } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -19,6 +21,7 @@ export class AuthService {
     public router: Router,  
     public ngZone: NgZone, // NgZone service to remove outside scope warning
     public notiService: NotificationService,
+    private fireStorage: AngularFireStorage,
   ) {    
     /* Saving user data in localstorage when 
     logged in and setting up null when logged out */
@@ -55,29 +58,68 @@ export class AuthService {
   }
 
   //Update Profile
-  UpdateProfile(email, password, newEmail, newDisplayName) {
-    return this.afAuth.auth.signInWithEmailAndPassword(email, password)
+  UpdateProfile(newEmail, newDisplayName, password) {
+    return this.afAuth.auth.signInWithEmailAndPassword(this.userData.email, password)
       .then(async (result) => {
-        await result.user.updateProfile({
-          displayName: newDisplayName
-        }).catch((error) => {
-          this.notiService.presentToast(error.message, 4000, 'danger');
-        });
-        this.UpdateEmail(email, password, newEmail, result);
+        if (this.userData.displayName != newDisplayName) {
+          this.UpdateDisplayName(newDisplayName, result);
+        }        
+        if (this.userData.email != newEmail) {
+          this.UpdateEmail(newEmail, password, result);
+        }
       }).catch((error) => {
         this.notiService.presentToast(error.message, 4000, 'danger');
       });
   }
 
+  //Update Display Name
+  async UpdateDisplayName(newDisplayName, userCredential) {
+    await userCredential.user.updateProfile({
+      displayName: newDisplayName
+    }).catch((error) => {
+      this.notiService.presentToast(error.message, 4000, 'danger');
+    });
+  }
+
   //Update Email
-  async UpdateEmail(email, password, newEmail, userCredential) {
-    if (email != newEmail) {
-      await userCredential.user.updateEmail(newEmail)
-      .catch((error) => {
+  async UpdateEmail(newEmail, password, userCredential) {
+    await userCredential.user.updateEmail(newEmail)
+    .catch((error) => {
+      this.notiService.presentToast(error.message, 4000, 'danger');
+    });
+    this.SignIn(newEmail, password);
+  }
+
+  //Upload Profile Photo
+  UploadPhoto(newPhoto, password) {
+    const filePath = 'users/' + this.userData.uid + '/profile_image/p_img'
+    const fileRef = this.fireStorage.ref(filePath);
+    return this.fireStorage.upload(filePath, newPhoto)
+      .snapshotChanges()
+      .pipe(
+        finalize(() => {
+          fileRef.getDownloadURL().pipe(take(1)).subscribe(url => {
+            if (url) {
+              this.UpdatePhotoURL(url, password);
+            }
+          });
+        })
+      )
+    
+  }
+
+  //Update Photo URL
+  async UpdatePhotoURL(newPhotoURL, password) {
+    return this.afAuth.auth.signInWithEmailAndPassword(this.userData.email, password)
+    .then(async (result) => {
+      await result.user.updateProfile({
+        photoURL: newPhotoURL
+      }).catch((error) => {
         this.notiService.presentToast(error.message, 4000, 'danger');
       });
-      this.SignIn(newEmail, password);
-    }
+    }).catch((error) => {
+      this.notiService.presentToast(error.message, 4000, 'danger');
+    });
   }
 
   // Sign up with email/password

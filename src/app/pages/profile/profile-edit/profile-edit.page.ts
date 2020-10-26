@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { AlertController, ModalController } from '@ionic/angular';
 import { AuthService } from 'src/app/core/services/auth.service';
+import { NotificationService } from 'src/app/core/services/notification.service';
 
 @Component({
   selector: 'app-profile-edit',
@@ -17,6 +18,7 @@ export class ProfileEditPage implements OnInit {
     public modalController: ModalController,
     public authService: AuthService,
     public alertController: AlertController,
+    public notiService: NotificationService,
   ) { }
 
   ngOnInit() {
@@ -51,12 +53,10 @@ export class ProfileEditPage implements OnInit {
         }, {
           text: 'Ok',
           handler: (data) => {
-            console.log('Confirm Ok');
             this.authService.UpdateProfile(
-              this.authService.userData.email,
-              data.password,
               this.profileEditForm.value.email,
               this.profileEditForm.value.displayName,
+              data.password,
             ).then(() => {
               this.closeProfileEditModal();
             });
