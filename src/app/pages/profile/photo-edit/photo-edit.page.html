@@ -5,5 +5,39 @@
         <h3 (click)="closePhotoEditModal()"><ion-icon name="close-outline"></ion-icon></h3>
       </ion-col>
     </ion-row>
+
+    <ion-row class="ion-justify-content-center ion-padding-top">
+      <ion-col class="ion-text-center" size-lg="6" size-md="6" size-sm="6" size="12">
+        <h1>Upload Photo</h1>
+
+        <input
+        #fileInput 
+        type="file" 
+        (change)="fileChangeEvent($event)" 
+        style="display: none;"
+        />
+        <image-cropper
+          [imageChangedEvent]="imageChangedEvent"
+          [maintainAspectRatio]="true"
+          [aspectRatio]="1 / 1"
+          format="png"
+          (imageCropped)="imageCropped($event)"
+          (loadImageFailed)="loadImageFailed()"
+        ></image-cropper>
+
+        <ion-button 
+          *ngIf="croppedImage" 
+          expand="full" 
+          fill="outline"
+          color="warning" 
+          (click)="onFileUpload()">
+          Save
+        </ion-button>
+        <ion-button expand="full" fill="outline" (click)="fileInput.click()">
+          <ion-icon name="folder-open-outline"></ion-icon>
+          Upload
+        </ion-button>
+      </ion-col>      
+    </ion-row>
   </ion-grid>
 </ion-content>
