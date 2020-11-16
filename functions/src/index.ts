@@ -11,7 +11,9 @@ admin.initializeApp();
 //   functions.logger.info("Hello logs!", {structuredData: true});
 //   response.send("Hello from Firebase!");
 // });
-exports.scheduledFunction = functions.pubsub.schedule('every 5 minutes').onRun((context) => {
-  console.log('This will be run every 5 minutes!');
+exports.scheduledFunction = functions.pubsub.schedule('0 0 * * *')
+  .timeZone('Asia/Bangkok')
+  .onRun((context) => {
+  console.log('This will be run every day at 00:00 AM!');
   return null;
 });
