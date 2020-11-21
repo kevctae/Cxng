@@ -9,7 +9,6 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { LayoutsModule } from './layouts/layouts.module';
-import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { AngularFireModule } from "@angular/fire";
 import { AngularFireAuthModule } from "@angular/fire/auth";
@@ -26,7 +25,6 @@ import { AuthService } from './core/services/auth.service';
     IonicModule.forRoot(), 
     AppRoutingModule,
     LayoutsModule,
-    NgbModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
     AngularFirestoreModule,
