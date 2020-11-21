@@ -30,3 +30,8 @@ npm-debug.log*
 /plugins
 /www
 src/environments
+<<<<<<< Updated upstream
+/function/node_modules
+=======
+/functions/node_modules
+>>>>>>> Stashed changes
