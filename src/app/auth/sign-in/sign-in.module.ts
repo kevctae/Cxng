@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SignInPageRoutingModule } from './sign-in-routing.module';
 
 import { SignInPage } from './sign-in.page';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   imports: [
@@ -14,6 +15,7 @@ import { SignInPage } from './sign-in.page';
     FormsModule,
     IonicModule,
     SignInPageRoutingModule,
+    NgbAlertModule,
     ReactiveFormsModule,
   ],
   declarations: [SignInPage]
