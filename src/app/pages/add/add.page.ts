@@ -1,8 +1,10 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 import { Subscription } from 'rxjs';
 import { RoomType } from 'src/app/core/models/room-type.model';
 import { NotificationService } from 'src/app/core/services/notification.service';
 import { RoomTypeService } from 'src/app/core/services/room-type.service';
+import { ReservePage } from './reserve/reserve.page';
 
 @Component({
   selector: 'app-add',
@@ -16,6 +18,7 @@ export class AddPage implements OnInit, OnDestroy {
   constructor(
     private roomTypeService: RoomTypeService,
     private notiService: NotificationService,
+    public modalController: ModalController,
   ) { }
 
   ngOnInit() {
@@ -31,6 +34,14 @@ export class AddPage implements OnInit, OnDestroy {
       }, (error) => {
         this.notiService.presentToast(error, 4000, 'danger')
       });
+  }
+
+  async openReserveModal(roomid: string) {
+    this.roomTypeService.setSelectedRoomID(roomid);
+    const modal = await this.modalController.create({
+      component: ReservePage,
+    });
+    return await modal.present();
   }
 
   ngOnDestroy() {

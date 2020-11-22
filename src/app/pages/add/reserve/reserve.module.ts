@@ -4,19 +4,17 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AddPageRoutingModule } from './add-routing.module';
+import { ReservePageRoutingModule } from './reserve-routing.module';
 
-import { AddPage } from './add.page';
-import { ReservePageModule } from './reserve/reserve.module';
+import { ReservePage } from './reserve.page';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    AddPageRoutingModule,
-    ReservePageModule,
+    ReservePageRoutingModule
   ],
-  declarations: [AddPage]
+  declarations: [ReservePage]
 })
-export class AddPageModule {}
+export class ReservePageModule {}

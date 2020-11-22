@@ -6,11 +6,17 @@ import { AngularFirestore } from '@angular/fire/firestore';
 })
 export class RoomTypeService {
 
+  selectedRoomID: string = '';
+
   constructor(
     public afs: AngularFirestore,
   ) { }
 
   getRoomTypes() {
     return this.afs.collection("roomTypes").snapshotChanges();
+  }
+
+  setSelectedRoomID(roomid: string) {
+    this.selectedRoomID = roomid;
   }
 }

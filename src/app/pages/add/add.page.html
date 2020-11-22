@@ -5,34 +5,43 @@
 </ion-header>
 
 <ion-content [fullscreen]="true">
-  <ion-card *ngFor="let roomType of roomTypes">
-    <img [src]="roomType.photoURL">
-    <ion-button fill="outline" slot="end">Reserve a Room</ion-button>
-    <ion-card-header>
-      <ion-card-subtitle>{{ roomType.roomid}}</ion-card-subtitle>
-      <ion-card-title>{{ roomType.name }}</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-row>
-        <ion-col>
-          <p>{{ roomType.description }}</p>
-        </ion-col>
-      </ion-row>
-
-      <ion-row class="ion-align-items-center">
-        <ion-col>
-          <p>Cost: {{ roomType.minPoints }} mins</p>
-          <p>Min. Player: {{ roomType.minPeople }}</p>
-        </ion-col>
-
-        <ion-col class="ion-text-end">
-          <ion-button 
-            fill="outline"
-            size="small">
-            Reserve
-          </ion-button>
-        </ion-col>
-      </ion-row>
-    </ion-card-content>
-  </ion-card>
+  <ion-grid>
+    <ion-row>
+      <ion-col
+        col-12 col-sm-9 col-md-6 col-lg-4 col-xl-3
+        *ngFor="let roomType of roomTypes">
+        <ion-card>
+          <img [src]="roomType.photoURL">
+          <ion-button fill="outline" slot="end">Reserve a Room</ion-button>
+          <ion-card-header>
+            <ion-card-subtitle>{{ roomType.roomid}}</ion-card-subtitle>
+            <ion-card-title>{{ roomType.name }}</ion-card-title>
+          </ion-card-header>
+          <ion-card-content>
+            <ion-row>
+              <ion-col>
+                <p>{{ roomType.description }}</p>
+              </ion-col>
+            </ion-row>
+      
+            <ion-row class="ion-align-items-center">
+              <ion-col>
+                <p>Cost: {{ roomType.minPoints }} mins</p>
+                <p>Min. Player: {{ roomType.minPeople }}</p>
+              </ion-col>
+      
+              <ion-col class="ion-text-end">
+                <ion-button 
+                  fill="outline"
+                  size="small"
+                  (click)="openReserveModal(roomType.roomid)">
+                  Reserve
+                </ion-button>
+              </ion-col>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
