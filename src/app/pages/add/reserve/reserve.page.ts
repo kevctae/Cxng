@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ModalController } from '@ionic/angular';
 
 @Component({
   selector: 'app-reserve',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservePage implements OnInit {
 
-  constructor() { }
+  constructor(
+    public modalController: ModalController,
+  ) { }
 
   ngOnInit() {
   }
 
+  onSubmit() {
+
+  }
+  
+  closeReserveModal() {
+    this.modalController.dismiss();
+  }
 }

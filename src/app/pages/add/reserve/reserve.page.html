@@ -1,9 +1,22 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>reserve</ion-title>
-  </ion-toolbar>
-</ion-header>
+<ion-content class="ion-padding">
+  <ion-grid>
+    <ion-row class="ion-align-items-center">
+      <ion-col class="ion-text-end">
+        <h3 (click)="closeReserveModal()"><ion-icon name="close-outline"></ion-icon></h3>
+      </ion-col>
+    </ion-row>
 
-<ion-content>
+    <!-- <form [formGroup]="reserveForm" (ngSubmit)="onSubmit()"> -->
+      <ion-row class="ion-justify-content-center ion-padding-top">
+        <ion-col class="ion-text-center" size-lg="6" size-md="6" size-sm="6" size="12">
+          <h1>Choose Date</h1>
 
+          <ion-item>
+            <ion-label>DD MM YY</ion-label>
+            <ion-datetime displayFormat="DD MM YY" placeholder="Select Date"></ion-datetime>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    <!-- </form> -->
+  </ion-grid>
 </ion-content>
